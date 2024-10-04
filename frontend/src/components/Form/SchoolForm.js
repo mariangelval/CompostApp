@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import '../../assets/styles/styles.css'
+
 function SchoolForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');  // Estado para la contraseña
@@ -11,9 +13,10 @@ function SchoolForm() {
     const [loading, setLoading] = useState(false);
     const navegate = useNavigate()
   return (
-    <form>
+    <div class="container-form-school">
+    <form class='formSchool'>
     <div>
-        <label>Email:</label>
+        <label>Email</label><br />
         <input
             type="email"
             value={email}
@@ -22,18 +25,26 @@ function SchoolForm() {
         />
     </div>
     <div>
-        <label>Nombre</label>
-        <input type='nombre' value={password} onChange={(e)=> setNombre(e.target.value)}/>
+        <label>Nombre</label><br />
+        <input type='text' value={nombre} onChange={(e)=> setNombre(e.target.value)}/>
+    </div>
+    <div class="CalleAltura">
+    <div>
+        <label>Calle</label><br />
+        <input type='text' value={calle} onChange={(e)=> setCalle(e.target.value)}/>
     </div>
     <div>
-        <label>Calle</label>
-        <input type='calle' value={calle} onChange={(e)=> setCalle(e.target.value)}/>
+        <label>Altura</label><br />
+        <input type='number' value={altura} onChange={(e)=> setAltura(e.target.value)}/>
+    </div>
     </div>
     <div>
-        <label>Altura</label>
+        <label>Descripcion</label><br />
+        <textarea name='descripcion' value={descripcion} rows="5" cols="40" onChange={(e)=> setDescripcion(e.target.value)}></textarea> 
+        
     </div>
     <div>
-        <label>Contraseña:</label>
+        <label>Contraseña</label>
         <input
             type="password"
             value={password}
@@ -42,10 +53,11 @@ function SchoolForm() {
         />
     </div>
     <button type="submit" disabled={loading}>
-        {loading ? 'Cargando...' : 'Ingresar'}
+        {loading ? 'Cargando...' : 'Enviar'}
     </button>
     {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 </form>
+</div>
   )
 }
 

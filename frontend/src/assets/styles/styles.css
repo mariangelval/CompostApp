@@ -25,9 +25,19 @@ h2 {
     color: #333;
 }
 
-form {
+.formLogin {
     display: flex;
     flex-direction: column;
+}
+.formSchool{
+    display: grid;
+    width: 800px;
+    height: 500px;
+    background-color:blanchedalmond;
+    justify-content: start;
+}
+.CalleAltura{
+    display: flex;
 }
 
 label {
@@ -36,8 +46,7 @@ label {
     color: #555;
 }
 
-input[type="email"],
-input[type="password"] {
+input {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -46,10 +55,8 @@ input[type="password"] {
     width: 100%;
     box-sizing: border-box;
 }
+input {
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #007bff;
     outline: none;
 }
 
