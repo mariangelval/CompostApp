@@ -9,6 +9,24 @@ body {
     margin: 0;
 }
 
+.boton-agregar{
+    background-color: #618760;
+    font-weight: bold;
+    height: 40px;
+    width: 90px;
+    margin: 21.440px 0 0 21.440px;
+
+}
+.boton-agregar:hover{
+    background-color:#416340;
+}
+.conjunto-historial{
+    display: flex;
+    justify-content: space-between;
+}
+.dashboard-container{
+    margin-bottom: 10px;
+}
 .login-page {
     background-color: #ffffff;
     padding: 40px;
@@ -81,7 +99,6 @@ button:disabled {
 }
 
 p {
-    color: #ff4d4d;
     font-size: 14px;
     text-align: center;
 }
