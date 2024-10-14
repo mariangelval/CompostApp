@@ -1,0 +1,36 @@
+body .formSchool {
+  display: grid;
+  height: 500px;
+  background-color: white;
+  justify-content: start;
+  border: 5px solid #d9d9d9;
+  border-radius: 10px;
+  padding: 15px;
+}
+.MuiPaper-root {
+  margin-bottom: 10px;
+}
+.CalleAltura {
+  display: flex;
+}
+.CalleAltura .inp1 {
+  margin-right: 100px;
+}
+body .formSchool input {
+  width: 780px;
+}
+body .CalleAltura input {
+  width: 340px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+body .formSchool button {
+  background-color: black;
+}
+body .formSchool button:hover {
+  background-color: #2e2e2e;
+}

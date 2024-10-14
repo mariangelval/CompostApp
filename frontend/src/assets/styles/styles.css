@@ -1,112 +1,152 @@
 /* Estilos básicos */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #fdfbf4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Cambiar a flex-start para que el contenido empiece desde arriba */
+  margin: 0;
+  padding-top: 64px;
 }
 
-.boton-agregar{
-    background-color: #618760;
-    font-weight: bold;
-    height: 40px;
-    width: 90px;
-    margin: 21.440px 0 0 21.440px;
-
+.boton-agregar {
+  background-color: #618760;
+  font-weight: bold;
+  height: 40px;
+  width: 90px;
+  margin: 21.44px 0 0 21.44px;
 }
-.boton-agregar:hover{
-    background-color:#416340;
+.boton-agregar:hover {
+  background-color: #416340;
 }
-.conjunto-historial{
-    display: flex;
-    justify-content: space-between;
+.conjunto-historial {
+  display: flex;
+  justify-content: space-between;
 }
-.dashboard-container{
-    margin-bottom: 10px;
+.dashboard-container {
+  margin-bottom: 10px;
 }
 .login-page {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
 }
 
 h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    text-align: center;
-    color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
 }
 
 .formLogin {
-    display: flex;
-    flex-direction: column;
-}
-.formSchool{
-    display: grid;
-    width: 800px;
-    height: 500px;
-    background-color:blanchedalmond;
-    justify-content: start;
-}
-.CalleAltura{
-    display: flex;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #555;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 input {
-
-    outline: none;
+  outline: none;
 }
 
 button {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px;
+  background-color: #618760;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+body .css-b4yaxo-MuiButtonBase-root-MuiButton-root {
+  color: #618760;
+  border-color: #618760;
+}
+body .css-1apkmlw-MuiButtonBase-root-MuiButton-root {
+  color: #618760;
+}
 button:hover {
-    background-color: #0056b3;
+  background-color: #416340;
+  color: white;
+  border: none;
 }
 
 button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 p {
-    font-size: 14px;
-    text-align: center;
+  font-size: 14px;
+  text-align: center;
 }
 
-.navbar {
-    width: 100%;
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
+.container-botones-agregar {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+.container-botones-agregar button {
+  background-color: #618760;
+}
+.container-botones-agregar button:hover {
+  background-color: #416340;
+}
+.container-verdes-reserva {
+  display: flex;
+  margin-top: 20px;
+}
+.reserva-compost img {
+  width: 140px;
+}
+.reserva-compost {
+  align-items: center;
+  margin-left: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.p-style {
+  height: 40px;
+  width: 200px;
+  background-color: #618760;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 10px;
+  color: white;
+}
+.k {
+  width: 80px;
+}
+body .css-1776fzg-MuiInputBase-root .MuiInputBase-input {
+  width: 100%;
+}
+body .css-1776fzg-MuiInputBase-root .MuiInputBase-input:focus {
+  width: 100%;
+}
+
+.container-pendientes {
+  margin: 10px;
 }
