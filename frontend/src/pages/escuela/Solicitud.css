@@ -1,0 +1,15 @@
+@media (max-width: 750px) {
+    body .formSchool {
+        height: 400px;
+        width: 300px;
+    }
+    body .formSchool input {
+        width: 300px;
+    }
+    body .CalleAltura input {
+        width: 100px;
+    }
+    textarea {
+        width: 300px; /* Cambia 300px por el ancho deseado */
+    }
+}
