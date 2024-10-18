@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import HistorialForm from "../../components/Form/HistorialForm";
+import "./Historial.css"
 function Historial() {
   return (
     <div className="historial-container">
