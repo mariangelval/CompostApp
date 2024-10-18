@@ -1,0 +1,51 @@
+@media (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+  .container-botones-agregar {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container-botones-agregar button {
+    margin-bottom: 3px;
+  }
+  body .css-fsultb-MuiPaper-root-MuiTableContainer-root {
+    width: 250px;
+  }
+  body .css-1sfdc1y-MuiTableCell-root {
+    max-width: 10px;
+    width: 0;
+  }
+  body .css-ofteri-MuiTableCell-root {
+    text-align: start;
+  }
+  body .css-1jdfx2h-MuiTableCell-root {
+    max-width: 10px;
+    width: 0;
+  }
+  body .css-gpc4xv-MuiTableCell-root {
+    text-align: start;
+    width: 50%;
+  }
+  body
+    .MuiTableCell-root
+    .MuiTableCell-body
+    .MuiTableCell-sizeMedium
+    .css-1sfdc1y-MuiTableCell-root {
+    width: 20px;
+  }
+  body .css-quj9j6-MuiTable-root {
+    min-width: 250px;
+  }
+  .container-verdes-reserva {
+    flex-direction: column;
+    align-items: center;
+  }
+  .reserva-compost {
+    margin-left: 0;
+  }
+}

@@ -97,11 +97,18 @@ function EscuelasList() {
     producto.nombreEscuela.toLowerCase().includes(busqueda.toLowerCase())
   );
   return (
-    <div>
+    <div style={{ width: "100%", minWidth: "800px", minHeight: "100vh" }}>
       <h1>Escuelas</h1>
       <label>
         Buscar por nombre:
-        <Search sx={{ backgroundColor: "white", border: "1px solid black" }}>
+        <Search
+          sx={{
+            backgroundColor: "white",
+            border: "1px solid black",
+            marginBottom: "10px",
+            marginTop: "10px",
+          }}
+        >
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -115,7 +122,7 @@ function EscuelasList() {
         </Search>
       </label>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 440, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>

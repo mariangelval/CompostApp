@@ -63,8 +63,8 @@ function SchoolForm() {
           <textarea
             name="descripcion"
             value={descripcion}
-            rows="5"
-            cols="100"
+            rows="4"
+            cols="92"
             onChange={(e) => setDescripcion(e.target.value)}
           ></textarea>
         </div>

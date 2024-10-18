@@ -28,7 +28,10 @@ const rows = [
 function PendientesTable() {
   const today = new Date().toISOString().split("T")[0];
 
-  const [dateValues, setDateValues] = useState(Array(rows.length).fill(""));
+  const [dateValues, setDateValues] = useState(() => {
+    const savedDates = localStorage.getItem("dateValues");
+    return savedDates ? JSON.parse(savedDates) : Array(rows.length).fill("");
+  });
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -37,6 +40,7 @@ function PendientesTable() {
     setDateValues((prev) => {
       const newValues = [...prev];
       newValues[currentIndex] = newDateValue;
+      localStorage.setItem("dateValues", JSON.stringify(newValues));
       return newValues;
     });
   };
@@ -110,7 +114,7 @@ function PendientesTable() {
                   variant="outlined"
                   onClick={() => handleClickOpen(index)}
                 >
-                  Seleccionar Fecha
+                  {dateValues[index] ? "Cambiar Fecha" : "Seleccionar Fecha"}
                 </Button>
                 <div>
                   {dateValues[index] &&
