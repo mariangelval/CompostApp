@@ -1,4 +1,6 @@
 using Api;
+using Microsoft.AspNetCore.Mvc;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +18,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Endpoints
-// Datos de prueba
+
+// ---------------------------------------------- Datos de prueba -------------------------------------------------------------
 
 List<Entidad> entidades = new List<Entidad>
 {
@@ -31,7 +33,12 @@ List<Entidad> entidades = new List<Entidad>
         contrasena = "pass123",
         CompostEntidadades = new List<CompostEntidad>
         {
-            new CompostEntidad { idCompostEntidad = 1, kilos = 13, fechaPedido = DateTime.Now, obsPedido = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", recoleccion = new DateTime(2024, 11, 18), retirado = 1, obsRetirado = "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
+            new CompostEntidad { idCompostEntidad = 1, kilos = 13, fechaPedido = DateTime.Now, obsPedido = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 4, kilos = 12, fechaPedido = DateTime.Now, obsPedido = "Lorem ipsum dolor sit amet.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 5, kilos = 10, fechaPedido = DateTime.Now, obsPedido = "Lorem ipsum dolor.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 6, kilos = 15, fechaPedido = DateTime.Now, obsPedido = "Consectetur adipiscing elit.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 7, kilos = 14, fechaPedido = DateTime.Now, obsPedido = "Sed do eiusmod tempor.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 8, kilos = 18, fechaPedido = DateTime.Now, obsPedido = "Incididunt ut labore.", recoleccion = null, retirado = 0, obsRetirado = null }
         }
     },
     new Entidad
@@ -44,7 +51,12 @@ List<Entidad> entidades = new List<Entidad>
         contrasena = "pass123",
         CompostEntidadades = new List<CompostEntidad>
         {
-            new CompostEntidad { idCompostEntidad = 2, kilos = 25, fechaPedido = DateTime.Now, obsPedido = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", recoleccion = new DateTime(2024, 11, 20), retirado = 0, obsRetirado = "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris." }
+            new CompostEntidad { idCompostEntidad = 2, kilos = 25, fechaPedido = DateTime.Now, obsPedido = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 9, kilos = 20, fechaPedido = DateTime.Now, obsPedido = "Sed do eiusmod.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 10, kilos = 30, fechaPedido = DateTime.Now, obsPedido = "Ut labore et dolore.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 11, kilos = 22, fechaPedido = DateTime.Now, obsPedido = "Magna aliqua.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 12, kilos = 26, fechaPedido = DateTime.Now, obsPedido = "Eiusmod tempor.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 13, kilos = 19, fechaPedido = DateTime.Now, obsPedido = "Incididunt ut labore.", recoleccion = null, retirado = 0, obsRetirado = null }
         }
     },
     new Entidad
@@ -57,16 +69,95 @@ List<Entidad> entidades = new List<Entidad>
         contrasena = "pass123",
         CompostEntidadades = new List<CompostEntidad>
         {
-            new CompostEntidad { idCompostEntidad = 3, kilos = 18, fechaPedido = DateTime.Now, obsPedido = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.", recoleccion = new DateTime(2024, 11, 25), retirado = 1, obsRetirado = "Excepteur sint occaecat cupidatat non proident, sunt in culpa." }
+            new CompostEntidad { idCompostEntidad = 3, kilos = 18, fechaPedido = DateTime.Now, obsPedido = "Duis aute irure dolor in reprehenderit.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 14, kilos = 20, fechaPedido = DateTime.Now, obsPedido = "Velit esse cillum.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 15, kilos = 15, fechaPedido = DateTime.Now, obsPedido = "Dolor in reprehenderit.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 16, kilos = 21, fechaPedido = DateTime.Now, obsPedido = "Voluptate velit esse.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 17, kilos = 23, fechaPedido = DateTime.Now, obsPedido = "Cillum dolore eu.", recoleccion = null, retirado = 0, obsRetirado = null },
+            new CompostEntidad { idCompostEntidad = 18, kilos = 28, fechaPedido = DateTime.Now, obsPedido = "Fugiat nulla pariatur.", recoleccion = null, retirado = 0, obsRetirado = null }
         }
     }
 };
 
+// ---------------------------------------------- ENDPOINTS -------------------------------------------------------------
+
+// LEER TODAS LAS ENTIDADES Y LOS PEDIDOS DE CADA UNA
 app.MapGet("/entidades-compost", () =>
 {
     return Results.Ok(entidades);
 })
 .WithTags("Entidad");
+
+// OBTENER RECOLECCIONES PENDIENTES
+app.MapGet("/entidades-compost/recolecciones-pendientes", () =>
+{
+    // Filtrar las entidades con recolecciones pendientes
+    var recoleccionesPendientes = entidades
+        .SelectMany(e => e.CompostEntidadades
+            .Where(c => c.retirado == 0) // Filtrar las recolecciones no retiradas
+            .Select(c => new 
+            {
+                NombreEntidad = e.nombre,     // Nombre de la entidad
+                FechaPedido = c.fechaPedido,   // Fecha del pedido
+                ObsPedido = c.obsPedido,
+                Recoleccion = c.recoleccion,
+                Retirado = c.retirado == 1 ? "SI" : "NO",
+                ObsRetirado = c.obsRetirado
+            }))
+        .ToList();
+
+    // Verificar si hay datos
+    if (recoleccionesPendientes.Count == 0)
+    {
+        return Results.NotFound("No hay recolecciones pendientes.");
+    }
+
+    return Results.Ok(recoleccionesPendientes);
+})
+.WithTags("Entidad");
+
+// EDITAR RECOLECCIONES (AIGNARLES UNA FECHA DE RETIRO O MARCARLOS COMO RETIRADOS)
+app.MapPut("/entidades-compost/pedidos", ([FromQuery] int idCompostEntidad, [FromBody] CompostEntidad compostEntidadActualizado) =>
+{
+    // Verificar si el idCompostEntidad del cuerpo es distinto al id en la query
+    if (compostEntidadActualizado.idCompostEntidad != 0 && compostEntidadActualizado.idCompostEntidad != idCompostEntidad)
+    {
+        return Results.BadRequest("No se permite modificar el idCompostEntidad."); 
+    }
+
+    // Buscar el pedido de compost por idCompostEntidad
+    var entidadAActualizar = entidades
+        .SelectMany(e => e.CompostEntidadades)
+        .FirstOrDefault(c => c.idCompostEntidad == idCompostEntidad);
+
+    if (entidadAActualizar == null)
+    {
+        return Results.NotFound($"No se encontró un pedido con el id {idCompostEntidad}."); // Código 404
+    }
+
+    // Actualizar solo los campos proporcionados (null-safe), sin modificar el idCompostEntidad
+    if (compostEntidadActualizado.kilos != 0)
+        entidadAActualizar.kilos = compostEntidadActualizado.kilos;
+
+    if (compostEntidadActualizado.fechaPedido != default(DateTime))
+        entidadAActualizar.fechaPedido = compostEntidadActualizado.fechaPedido;
+
+    if (compostEntidadActualizado.obsPedido != null)
+        entidadAActualizar.obsPedido = compostEntidadActualizado.obsPedido;
+
+    if (compostEntidadActualizado.recoleccion != null)
+        entidadAActualizar.recoleccion = compostEntidadActualizado.recoleccion;
+
+    if (compostEntidadActualizado.retirado != null)
+        entidadAActualizar.retirado = compostEntidadActualizado.retirado;
+
+    if (compostEntidadActualizado.obsRetirado != null)
+        entidadAActualizar.obsRetirado = compostEntidadActualizado.obsRetirado;
+
+    return Results.Ok(entidades); // Código 200
+})
+.WithTags("Entidad");
+
 
 
 

@@ -10,6 +10,7 @@ CREATE TABLE Entidad (
     altura SMALLINT UNSIGNED,
     nombre VARCHAR(45) NOT NULL,
     email VARCHAR(45) NOT NULL,
+    contrasena VARCHAR(45) NOT NULL,
     CONSTRAINT PK_Entidad PRIMARY KEY (idEntidad)
 );
 
@@ -28,6 +29,7 @@ CREATE TABLE CompostEntidad (
 
 CREATE TABLE EspacioVerde (
     idEspacioVerde SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(45), 
     calle VARCHAR(45),
     altura MEDIUMINT,
     metros2 SMALLINT,

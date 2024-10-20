@@ -6,6 +6,7 @@ erDiagram
         SMALLINT altura
         VARCHAR nombre
         VARCHAR email
+        VARCHAR contrasena
     }
     
     CompostEntidad {
@@ -21,6 +22,7 @@ erDiagram
     
     EspacioVerde {
         SMALLINT idEspacioVerde PK
+        VARCHAR nombre
         VARCHAR calle
         MEDIUMINT altura
         SMALLINT metros2
