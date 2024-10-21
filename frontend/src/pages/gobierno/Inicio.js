@@ -1,7 +1,7 @@
 import React from "react";
 import PendientesTable from "../../components/Tables/PendientesTable";
 import EspaciosVerdesTable from "../../components/Tables/EspaciosVerdesTable";
-import compostIcon from "../../assets/compost.png";
+import compostIcon from "../../assets/img/compost.png";
 import Navbar from "../../components/NavBar/NavBar";
 import "./Inicio.css"
 import { useParams } from "react-router-dom";

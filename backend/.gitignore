@@ -1,0 +1,23 @@
+# Ignorar las carpetas bin y obj
+bin/
+obj/
+
+# Ignorar configuraciones de Visual Studio
+*.user
+*.suo
+.vscode/
+.vs/
+*.sln.docstates
+
+# Archivos de paquetes
+*.nupkg
+*.snupkg
+
+# Ignorar directorios de migraciones de Entity Framework
+Migrations/
+
+# Archivos de logs
+*.log
+
+# Ignorar el archivo de configuración para usuarios locales
+appsettings.Local.json
