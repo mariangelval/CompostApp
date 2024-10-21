@@ -142,10 +142,10 @@ p {
   width: 80px;
 }
 body .css-1776fzg-MuiInputBase-root .MuiInputBase-input {
-  width: 100%;
+  width: 400px;
 }
 body .css-1776fzg-MuiInputBase-root .MuiInputBase-input:focus {
-  width: 100%;
+  width: 400px;
 }
 
 .container-pendientes {

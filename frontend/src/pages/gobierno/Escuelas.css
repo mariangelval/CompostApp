@@ -1,0 +1,47 @@
+.header-buscador img {
+  width: 100px;
+  height: 100px;
+  margin-top: 35px;
+}
+.header-buscador {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin: 30px 0px 40px 0px;
+}
+.form-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+body .modal-escuela .MuiBox-root {
+  padding: 40px;
+}
+.modal-warning {
+  display: flex;
+}
+.modal-warning img {
+  width: 100px;
+  height: 100px;
+}
+body .modal-warning .MuiBox-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-warning button {
+  margin: 0;
+}
+body .modal-warning .boton-confirmar {
+  background-color: #618760;
+  margin: 10px;
+}
+.modal-warning .boton-confirmar:hover {
+  background-color: #416340;
+}
+.modal-warning .boton-cancelar {
+  background-color: #ff4f4f;
+}
+.boton-cancelar:hover {
+  background-color: #cb4040;
+}

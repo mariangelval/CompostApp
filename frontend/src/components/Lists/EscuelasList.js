@@ -1,9 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -22,20 +18,6 @@ const columns = [
     align: "right",
   },
 ];
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
 
 function createData(nombreEscuela, direccion, codigoPostal) {
   return { nombreEscuela, direccion, codigoPostal };
@@ -53,38 +35,9 @@ const rows = [
   createData("Escuela Modelo", "Calle Independencia 112", "76230"),
   createData("Centro Educativo Santa Fe", "Av. Colón 567", "11000"),
 ];
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  width: "100%",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
-function EscuelasList() {
-  const [busqueda, setBusqueda] = useState("");
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+function EscuelasList({ busqueda }) {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -98,29 +51,6 @@ function EscuelasList() {
   );
   return (
     <div style={{ width: "100%", minWidth: "800px", minHeight: "100vh" }}>
-      <h1>Escuelas</h1>
-      <label>
-        Buscar por nombre:
-        <Search
-          sx={{
-            backgroundColor: "white",
-            border: "1px solid black",
-            marginBottom: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            type="text"
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Escribe el nombre del instituto"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
-      </label>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">
@@ -172,7 +102,7 @@ function EscuelasList() {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={rows.length}
+          count={productosFiltrados.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
