@@ -81,10 +81,55 @@ List<Entidad> entidades = new List<Entidad>
 
 // ---------------------------------------------- ENDPOINTS -------------------------------------------------------------
 
+// OBTENER UNA LISTA DE ENTIDADES
+app.MapGet("/entidades", () =>
+{
+    var soloEntidades = entidades.Select(e => new
+    {
+        e.idEntidad,
+        e.calle,
+        e.altura,
+        e.nombre,
+        e.email,
+        e.contrasena,
+    }).ToList();
+    return Results.Ok(soloEntidades);
+}).WithTags("Entidad");
+
 // LEER TODAS LAS ENTIDADES Y LOS PEDIDOS DE CADA UNA
 app.MapGet("/entidades-compost", () =>
 {
     return Results.Ok(entidades);
+})
+.WithTags("Entidad");
+
+// BUSCAR ENTIDAD POR NOMBRE
+app.MapGet("/entidades/{nombre}", (string nombre) =>
+{
+    var entidadEncontrada = entidades.Where(e => e.nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase))
+                                     .Select(e => new
+                                     {
+                                         e.idEntidad,
+                                         e.calle,
+                                         e.altura,
+                                         e.nombre,
+                                         e.email,
+                                         e.contrasena,
+                                     }).ToList();
+
+    if (entidadEncontrada.Count == 0)
+    {
+        return Results.NotFound("No se encontró ningún instituto con ese nombre.");
+    }
+    
+    return Results.Ok(entidadEncontrada);
+}).WithTags("Entidad");
+
+// AGREGAR UNA NUEVA ENTIDAD
+app.MapPost("/entidad", ([FromBody] Entidad entidad) =>
+{
+    entidades.Add(entidad);
+    return Results.Ok(entidad);
 })
 .WithTags("Entidad");
 
@@ -95,7 +140,7 @@ app.MapGet("/entidades-compost/recolecciones-pendientes", () =>
     var recoleccionesPendientes = entidades
         .SelectMany(e => e.CompostEntidadades
             .Where(c => c.retirado == 0) // Filtrar las recolecciones no retiradas
-            .Select(c => new 
+            .Select(c => new
             {
                 NombreEntidad = e.nombre,     // Nombre de la entidad
                 FechaPedido = c.fechaPedido,   // Fecha del pedido
@@ -116,13 +161,13 @@ app.MapGet("/entidades-compost/recolecciones-pendientes", () =>
 })
 .WithTags("Entidad");
 
-// EDITAR RECOLECCIONES (AIGNARLES UNA FECHA DE RETIRO O MARCARLOS COMO RETIRADOS)
+// EDITAR RECOLECCIONES (ASIGNARLES UNA FECHA DE RETIRO O MARCARLOS COMO RETIRADOS)
 app.MapPut("/entidades-compost/pedidos", ([FromQuery] int idCompostEntidad, [FromBody] CompostEntidad compostEntidadActualizado) =>
 {
     // Verificar si el idCompostEntidad del cuerpo es distinto al id en la query
     if (compostEntidadActualizado.idCompostEntidad != 0 && compostEntidadActualizado.idCompostEntidad != idCompostEntidad)
     {
-        return Results.BadRequest("No se permite modificar el idCompostEntidad."); 
+        return Results.BadRequest("No se permite modificar el idCompostEntidad.");
     }
 
     // Buscar el pedido de compost por idCompostEntidad
@@ -157,6 +202,60 @@ app.MapPut("/entidades-compost/pedidos", ([FromQuery] int idCompostEntidad, [Fro
     return Results.Ok(entidades); // Código 200
 })
 .WithTags("Entidad");
+
+
+// EDITAR UNA ENTIDAD POR ID 
+app.MapPut("/entidades/{IdEntidad}", (int IdEntidad, [FromBody] Entidad entidad) =>
+{
+    var entidadAActualizar = entidades.FirstOrDefault(e => e.idEntidad == IdEntidad);
+    // Verificar si la entidad existe
+    if (entidadAActualizar == null)
+    {
+        return Results.NotFound(); // 404 Not Found
+    }
+    // Verificar si se está intentando modificar el id
+    if (entidad.idEntidad != IdEntidad)
+    {
+        return Results.BadRequest(); // 400 Bad Request
+    }
+    // Modificar las propiedades de la entidad sin incluir pedidos
+    entidadAActualizar.calle = entidad.calle;
+    entidadAActualizar.altura = entidad.altura;
+    entidadAActualizar.nombre = entidad.nombre;
+    entidadAActualizar.email = entidad.email;
+    entidadAActualizar.contrasena = entidad.contrasena;
+
+    // Devolver solo los datos de la entidad, excluyendo pedidos
+    var response = new 
+    {
+        entidadAActualizar.idEntidad,
+        entidadAActualizar.calle,
+        entidadAActualizar.altura,
+        entidadAActualizar.nombre,
+        entidadAActualizar.email,
+        entidadAActualizar.contrasena
+    };
+
+    // Devolver 204 No Content si la actualización es exitosa
+    return Results.Ok(response); // 200 Ok
+}).WithTags("Entidad");
+
+
+// BORRAR UNA ENTIDAD
+app.MapDelete("/entidad", ([FromQuery] int idEntidad) =>
+{
+    var EntidadAEliminar = entidades.FirstOrDefault(e => e.idEntidad == idEntidad);
+    if (EntidadAEliminar != null)
+    {
+        entidades.Remove(EntidadAEliminar);
+        return Results.Ok(entidades); //Codigo 200
+    }
+    else
+    {
+        return Results.NotFound(); //Codigo 404
+    }
+})
+    .WithTags("Entidad");
 
 
 
