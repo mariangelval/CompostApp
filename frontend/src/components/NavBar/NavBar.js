@@ -32,6 +32,9 @@ function Navbar() {
   const goToHistorial = () => {
     navegate("/historial");
   };
+  const goToEspaciosVerdes=()=>{
+    navegate("/espacios-verdes");
+  }
 
   return (
     <>
@@ -57,6 +60,9 @@ function Navbar() {
             <Button color="inherit" onClick={goToEscuelas}>
               Buscar
             </Button>
+            <Button color="inherit" onClick={goToEspaciosVerdes}>
+              Espacios Verdes
+            </Button>
             <Button color="inherit" onClick={goToHistorial}>
               Historial
             </Button>
@@ -75,6 +81,7 @@ function Navbar() {
           <MenuItem onClick={goToInicio}>Inicio</MenuItem>
           <MenuItem onClick={goToSolicitud}>Formulario</MenuItem>
           <MenuItem onClick={goToEscuelas}>Buscar</MenuItem>
+          <MenuItem onClick={goToEspaciosVerdes}>Espacios Verdes</MenuItem>
           <MenuItem onClick={goToHistorial}>Historial</MenuItem>
         </Menu>
       </AppBar>

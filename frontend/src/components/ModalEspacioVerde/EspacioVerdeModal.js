@@ -14,10 +14,10 @@ const modalStyle = {
   p: 4,
 };
 
-function EscuelaModal({ open, handleClose }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Estado para la contraseña
+function EspacioVerdeModal({ open, handleClose }) {
   const [errorMessage, setErrorMessage] = useState("");
+  const [dimension, setDimension] = useState(0);
+  const [descripcion, setDescripcion] = useState("");
   const [nombre, setNombre] = useState("");
   const [calle, setCalle] = useState("");
   const [altura, setAltura] = useState("");
@@ -31,7 +31,7 @@ function EscuelaModal({ open, handleClose }) {
       className="modal-escuela"
     >
       <Box sx={modalStyle}>
-        <h2 id="modal-title">Agregar un instituto</h2>
+        <h2 id="modal-title">Agregar un Espacio Verde</h2>
 
         <form className="form-modal">
           <div className="CalleAltura">
@@ -44,17 +44,6 @@ function EscuelaModal({ open, handleClose }) {
                 onChange={(e) => setNombre(e.target.value)}
               />
             </div>
-            <div>
-              <label>Email</label>
-              <br />
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.vaue)}
-              />
-            </div>
-          </div>
-          <div class="CalleAltura">
             <div class="input-calleAltura inp1">
               <label>Calle</label>
               <br />
@@ -64,7 +53,9 @@ function EscuelaModal({ open, handleClose }) {
                 onChange={(e) => setCalle(e.target.value)}
               />
             </div>
-            <div class="input-calleAltura">
+          </div>
+          <div class="CalleAltura">
+            <div class="inp1">
               <label>Altura</label>
               <br />
               <input
@@ -75,16 +66,26 @@ function EscuelaModal({ open, handleClose }) {
                 onChange={(e) => setAltura(e.target.value)}
               />
             </div>
+            <div class="input-calleAltura inp1">
+              <label>Dimensión</label>
+              <br />
+              <input
+                type="number"
+                value={dimension}
+                onChange={(e) => setDimension(e.target.value)}
+              />
+            </div>
           </div>
           <div>
-            <label>Contraseña</label>
+            <label>Descripcion</label>
             <br />
-            <input
-              type="text"
-              style={{ width: "300px" }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <textarea
+              name="descripcion"
+              rows="4"
+              cols="38"
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+            ></textarea>
           </div>
           <div className="container-botones-agregar">
             <Button
@@ -114,4 +115,4 @@ function EscuelaModal({ open, handleClose }) {
   );
 }
 
-export default EscuelaModal;
+export default EspacioVerdeModal;

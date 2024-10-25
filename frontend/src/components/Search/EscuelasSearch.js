@@ -32,7 +32,7 @@ function EscuelasSearch({ busqueda, setBusqueda }) {
       <StyledInputBase
         type="text"
         onChange={(e) => setBusqueda(e.target.value)}
-        placeholder="Escribe el nombre del instituto"
+        placeholder="Buscar"
         inputProps={{ "aria-label": "search" }}
       />
     </Search>

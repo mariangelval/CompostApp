@@ -151,3 +151,7 @@ body .css-1776fzg-MuiInputBase-root .MuiInputBase-input:focus {
 .container-pendientes {
   margin: 10px;
 }
+body .css-99wn1p-MuiList-root-MuiMenu-list{
+  background-color: #618760;
+  color: white;
+}
