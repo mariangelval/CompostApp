@@ -14,13 +14,13 @@ const modalStyle = {
   p: 4,
 };
 
-function ConfirmEscuelaModal({ open, handleClose, handleConfirm }) {
+function ConfirmEscuelaModal({ open, handleClose, handleConfirm, title }) {
   return (
     <Modal open={open} onClose={handleClose} className="modal-warning">
       <Box sx={modalStyle}>
         <img src={Warning} alt="advertencia de borrado"></img>
         <h2>Confirmar Borrado</h2>
-        <p>¿Estás seguro de que deseas borrar esta institución?</p>
+        <p>{title}</p>
         <Button variant="contained" color="secondary" onClick={handleConfirm} className="boton-confirmar">
           Confirmar
         </Button>

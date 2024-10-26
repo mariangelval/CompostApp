@@ -6,73 +6,117 @@ import EscuelasSearch from "../../components/Search/EscuelasSearch";
 import EscuelasButtons from "../../components/Buttons/EscuelasButtons";
 import EscuelaModal from "../../components/Modal/EscuelaModal";
 import InputModal from "../../components/Modal/InputModal";
-import EscuelaUPModal from "../../components/Modal/EscuelaUPModal";
 import ConfirmEscuelaModal from "../../components/Modal/ConfirmEscuelaModal";
-import InputDeleteModal from "../../components/Modal/InputDeleteModal";
 import "./Escuelas.css";
+
 function Escuelas() {
   const [busqueda, setBusqueda] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [openEscuelaUPModal, setEscuelaUPModal] = useState(false);
   const [openInputModal, setOpenInputModal] = useState(false);
-  const [inputValue, setInputValue] = useState("");
   const [openInputDeleteModal, setOpenInputDeleteModal] = useState(false);
-
   const [openConfirmEscuelaModal, setOpenConfirmEscuelaModal] = useState(false);
-  const handleOpenModal = () => setOpenModal(true);
-  const handleCloseModal = () => setOpenModal(false);
-  const handleOpenInputModal = () => setOpenInputModal(true);
-  const handleCloseInputModal = () => setOpenInputModal(false);
-  const handleOpenInputDeleteModal = () => setOpenInputDeleteModal(true);
+  const [openEscuelaModal, setOpenEscuelaModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false); // es para editar o no
+  const [recordId, setRecordId] = useState(""); // id para editar
+  const [deleteId, setDeleteId] = useState(""); // id para eliminar
+
+  const handleOpenInputDeleteModal = () => {
+    setOpenInputDeleteModal(true);
+  };
+
   const handleCloseInputDeleteModal = () => setOpenInputDeleteModal(false);
 
   const handleDeleteConfirm = () => {
-    setOpenInputDeleteModal(false); 
-    setOpenConfirmEscuelaModal(true); 
+    setOpenInputDeleteModal(false);
+    setOpenConfirmEscuelaModal(true);
+    setDeleteId(""); 
   };
 
-  const handleSubmit = (value) => {
-    setInputValue(value);
-    if (value) {
-      setEscuelaUPModal(true);
+  const handleOpenInputModal = () => {
+    setOpenInputModal(true);
+    setIsEditing(true); // modo editar
+  };
+
+  const handleOpenEscuelaModal = () => {
+    if (isEditing) {
+      setOpenEscuelaModal(true);
+      setRecordId("");
+    } else {
+      setOpenEscuelaModal(true); // para agregar
     }
   };
+
+  const handleCloseInputModal = () => setOpenInputModal(false);
+  const handleCloseEscuelaModal = () => {
+    setOpenEscuelaModal(false);
+    setRecordId(""); 
+  };
+
+  const handleInputModalSubmit = (id) => {
+    if (id.trim()) {
+      setRecordId(id);
+      handleCloseInputModal();
+      handleOpenEscuelaModal(); // abre modal escuela
+    } else {
+      handleCloseInputModal();
+    }
+  };
+
+  const handleDeleteModalSubmit = (id) => {
+    if (id.trim()) {
+      // si el id no esta vacio
+      setDeleteId(id);
+      handleCloseInputDeleteModal();
+      handleDeleteConfirm(); // abre confirmacion
+    } else {
+      handleCloseInputDeleteModal();
+    }
+  };
+
   return (
     <div>
       <Navbar />
       <div className="header-buscador">
-        <img src={office} alt="image de edificio"></img>
+        <img src={office} alt="imagen de edificio"></img>
         <div className="header-buscador-search">
           <h1>Instituciones</h1>
           <EscuelasSearch busqueda={busqueda} setBusqueda={setBusqueda} />
         </div>
         <EscuelasButtons
-          onButtonClick={handleOpenModal}
-          onSecondButtonClick={handleOpenInputModal}
-          onThirdButtonClick={handleOpenInputDeleteModal}
+          onButtonClick={() => {
+            setIsEditing(false);
+            setRecordId(""); 
+            handleOpenEscuelaModal(); 
+          }}
+          onSecondButtonClick={handleOpenInputModal} // abre inputmodal
+          onThirdButtonClick={handleOpenInputDeleteModal} // abre inputmodal
         />
       </div>
       <EscuelasList busqueda={busqueda} />
-      <EscuelaModal open={openModal} handleClose={handleCloseModal} />
+      <EscuelaModal
+        open={openEscuelaModal}
+        handleClose={handleCloseEscuelaModal}
+        isEditing={isEditing}
+        recordId={recordId}
+      />
       <InputModal
         open={openInputModal}
         handleClose={handleCloseInputModal}
-        onSubmit={handleSubmit}
+        onSubmit={handleInputModalSubmit} 
+        resetOnOpen={true}
       />
-      <EscuelaUPModal
-        open={openEscuelaUPModal}
-        handleClose={() => {
-          setEscuelaUPModal(false);
-        }}
-      />
-      <InputDeleteModal
+      <InputModal
         open={openInputDeleteModal}
         handleClose={handleCloseInputDeleteModal}
-        onSubmit={handleDeleteConfirm}
+        onSubmit={handleDeleteModalSubmit} 
+        resetOnOpen={true}
       />
-      <ConfirmEscuelaModal open={openConfirmEscuelaModal} handleClose={()=>{
-        setOpenConfirmEscuelaModal(false);
-      }}/>
+      <ConfirmEscuelaModal
+        open={openConfirmEscuelaModal}
+        handleClose={() => {
+          setOpenConfirmEscuelaModal(false);
+        }}
+        title="¿Estás seguro de que deseas borrar esta institución?"
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -16,8 +16,14 @@ const modalStyle = {
   p: 4,
 };
 
-function InputModal({ open, handleClose, onSubmit }) {
+function InputModal({ open, handleClose, onSubmit, resetOnOpen = false }) {
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    if (open && resetOnOpen) {
+      setInputValue("");
+    }
+  }, [open, resetOnOpen]);
 
   const handleSubmit = () => {
     onSubmit(inputValue);

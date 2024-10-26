@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,7 +14,7 @@ const modalStyle = {
   p: 4,
 };
 
-function EspacioVerdeModal({ open, handleClose }) {
+function EspacioVerdeModal({ open, handleClose, isEditing, recordId }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [dimension, setDimension] = useState(0);
   const [descripcion, setDescripcion] = useState("");
@@ -22,6 +22,20 @@ function EspacioVerdeModal({ open, handleClose }) {
   const [calle, setCalle] = useState("");
   const [altura, setAltura] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (isEditing && recordId) {
+      // para cargar desde la bd
+    }
+  }, [isEditing, recordId]);
+  useEffect(() => {
+    if (open) {
+      setAltura("");
+      setCalle("");
+      setDescripcion("");
+      setDimension(0);
+      setNombre("");
+    }
+  }, [open]);
   return (
     <Modal
       open={open}
@@ -31,7 +45,9 @@ function EspacioVerdeModal({ open, handleClose }) {
       className="modal-escuela"
     >
       <Box sx={modalStyle}>
-        <h2 id="modal-title">Agregar un Espacio Verde</h2>
+        <h2 id="modal-title">
+          {isEditing ? "Editar Espacio Verde" : "Agregar Espacio Verde"}
+        </h2>
 
         <form className="form-modal">
           <div className="CalleAltura">
@@ -72,6 +88,7 @@ function EspacioVerdeModal({ open, handleClose }) {
               <input
                 type="number"
                 value={dimension}
+                min="0"
                 onChange={(e) => setDimension(e.target.value)}
               />
             </div>
