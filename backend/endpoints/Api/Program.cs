@@ -21,6 +21,7 @@ if (app.Environment.IsDevelopment())
 
 // ---------------------------------------------- Datos de prueba -------------------------------------------------------------
 
+// Entidades y pedidos de cada una
 List<Entidad> entidades = new List<Entidad>
 {
     new Entidad
@@ -78,6 +79,69 @@ List<Entidad> entidades = new List<Entidad>
         }
     }
 };
+
+// Espacios verdes
+List<EspacioVerde> espaciosVerdes = new List<EspacioVerde>
+{
+    new EspacioVerde
+    {
+        idEspacioVerde = 1,
+        nombre = "Plaza del Angel Gris",
+        calle = "Avellaneda",
+        altura = 0,
+        descripcion = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        metros2 = 40,
+        VisitaEspacios = new List<VisitaEspacio>
+        {
+            new VisitaEspacio{ idVisitaEspacio = 1, fecha = new DateTime(2024, 1, 6), kilos = 30, descripcion = "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+            new VisitaEspacio{ idVisitaEspacio = 2, fecha = new DateTime(2024, 5, 6), kilos = 20, descripcion = "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua" }
+        }
+    },
+    new EspacioVerde
+    {
+        idEspacioVerde = 2,
+        nombre = "Parque Patricios",
+        calle = "Caseros",
+        altura = 123,
+        descripcion = "Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
+        metros2 = 75,
+        VisitaEspacios = new List<VisitaEspacio>
+        {
+            new VisitaEspacio{ idVisitaEspacio = 3, fecha = new DateTime(2024, 2, 15), kilos = 25, descripcion = "Praesent libero. Sed cursus ante dapibus diam" },
+            new VisitaEspacio{ idVisitaEspacio = 4, fecha = new DateTime(2024, 6, 20), kilos = 35, descripcion = "Nulla quis sem at nibh elementum imperdiet" }
+        }
+    },
+    new EspacioVerde
+    {
+        idEspacioVerde = 3,
+        nombre = "Plaza San Martin",
+        calle = "Libertador",
+        altura = 456,
+        descripcion = "Sed nisi. Nulla quis sem at nibh elementum imperdiet.",
+        metros2 = 120,
+        VisitaEspacios = new List<VisitaEspacio>
+        {
+            new VisitaEspacio{ idVisitaEspacio = 5, fecha = new DateTime(2024, 3, 10), kilos = 15, descripcion = "Sed nisi. Nulla quis sem at nibh elementum imperdiet" },
+            new VisitaEspacio{ idVisitaEspacio = 6, fecha = new DateTime(2024, 7, 25), kilos = 10, descripcion = "Fusce nec tellus sed augue semper porta" }
+        }
+    },
+    new EspacioVerde
+    {
+        idEspacioVerde = 4,
+        nombre = "Plaza Manzana",
+        calle = "Corrientes",
+        altura = 789,
+        descripcion = "Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.",
+        metros2 = 60,
+        VisitaEspacios = new List<VisitaEspacio>
+        {
+            new VisitaEspacio{ idVisitaEspacio = 7, fecha = new DateTime(2024, 4, 5), kilos = 28, descripcion = "Duis sagittis ipsum. Praesent mauris" },
+            new VisitaEspacio{ idVisitaEspacio = 8, fecha = new DateTime(2024, 8, 15), kilos = 22, descripcion = "Fugiat nulla pariatur. Excepteur sint occaecat" }
+        }
+    }
+};
+
+
 
 // ---------------------------------------------- ENDPOINTS -------------------------------------------------------------
 
@@ -256,6 +320,146 @@ app.MapDelete("/entidad", ([FromQuery] int idEntidad) =>
     }
 })
     .WithTags("Entidad");
+
+// OBTENER UNA LISTA DE ESPACIOS VERDES
+app.MapGet("/espacio-verde", () =>
+{
+    var soloEspaciosVerdes = espaciosVerdes.Select(e => new
+    {
+        e.idEspacioVerde,
+        e.nombre,
+        e.calle,
+        e.altura,
+        e.metros2,
+        e.descripcion 
+    }).ToList();
+    return Results.Ok(soloEspaciosVerdes);
+}).WithTags("Espacios Verdes");
+
+
+// REGISTRAR UN NUEVO ESPACIO VERDE
+app.MapPost("/espacio-verde", ([FromBody] EspacioVerde espacioVerde) =>
+{
+    espaciosVerdes.Add(espacioVerde);
+    return Results.Ok(espaciosVerdes);
+})
+.WithTags("Espacios Verdes");
+
+
+// BORRAR UN ESPACIO VERDE
+app.MapDelete("/espacio-verde", ([FromQuery] int idEspacioVerde) =>
+{
+    var EspacioVerdeAEliminar = espaciosVerdes.FirstOrDefault(e => e.idEspacioVerde == idEspacioVerde);
+    if (EspacioVerdeAEliminar != null)
+    {
+        espaciosVerdes.Remove(EspacioVerdeAEliminar);
+        return Results.Ok(espaciosVerdes); //Codigo 200
+    }
+    else
+    {
+        return Results.NotFound(); //Codigo 404
+    }
+})
+    .WithTags("Espacios Verdes");
+ 
+ // EDITAR UN ESPACIO VERDE POR ID
+app.MapPut("/espacios-verdes/{idEspacioVerde}", (int idEspacioVerde, [FromBody] EspacioVerde espacioVerde) =>
+{
+    var EspacioVerdeAActualizar = espaciosVerdes.FirstOrDefault(e => e.idEspacioVerde == idEspacioVerde);
+    // Verificar si la entidad existe
+    if (EspacioVerdeAActualizar == null)
+    {
+        return Results.NotFound(); // 404 Not Found
+    }
+    // Verificar si se está intentando modificar el id
+    if (espacioVerde.idEspacioVerde != idEspacioVerde)
+    {
+        return Results.BadRequest(); // 400 Bad Request
+    }
+    // Modificar las propiedades de la entidad sin incluir visitas asociadas
+    EspacioVerdeAActualizar.nombre = espacioVerde.nombre;
+    EspacioVerdeAActualizar.calle = espacioVerde.calle;
+    EspacioVerdeAActualizar.altura = espacioVerde.altura;
+    EspacioVerdeAActualizar.metros2 = espacioVerde.metros2;
+    EspacioVerdeAActualizar.descripcion = espacioVerde.descripcion;
+
+    // Devolver solo los datos de la entidad, excluyendo pedidos
+    var response = new 
+    {
+        EspacioVerdeAActualizar.idEspacioVerde,
+        EspacioVerdeAActualizar.nombre,
+        EspacioVerdeAActualizar.calle,
+        EspacioVerdeAActualizar.altura,
+        EspacioVerdeAActualizar.metros2,
+        EspacioVerdeAActualizar.descripcion
+    };
+
+    // Devolver 204 No Content si la actualización es exitosa
+    return Results.Ok(response); // 200 Ok
+}).WithTags("Espacios Verdes");
+
+// VER ESPACIOS VERDES EN FUNCIÓN DE SU PRIORIDAD (los que fueron visitados más recientemente de últimos y de primeros los espacio cuya visita fue hace mucho)
+app.MapGet("/espaciosVerdesPrioridad", () =>
+{
+    var espaciosVerdesOrdenados = espaciosVerdes
+        .Select(e => new
+        {
+            e.idEspacioVerde,
+            e.nombre,
+            e.calle,
+            e.altura,
+            e.descripcion,
+            e.metros2,
+            UltimaVisita = e.VisitaEspacios
+                .OrderByDescending(v => v.fecha)
+                .FirstOrDefault()?.fecha,
+            KilosUltimaVisita = e.VisitaEspacios
+                .OrderByDescending(v => v.fecha)
+                .FirstOrDefault()?.kilos,
+        })
+        .OrderBy(e => e.UltimaVisita ?? DateTime.MinValue)
+        .ToList();
+
+    return Results.Ok(espaciosVerdesOrdenados);
+}).WithTags("Espacios Verdes");
+
+// VER HISTORIAL DE PEDIDOS
+app.MapGet("/historialPedidos", () =>
+{
+    var pedidosPasados = entidades
+        .SelectMany(e => e.CompostEntidadades)
+        .Where(p => p.fechaPedido < DateTime.Now)
+        .Select(p => new
+        {
+            p.idCompostEntidad,
+            p.kilos,
+            p.fechaPedido,
+            p.obsPedido,
+            p.recoleccion,
+            p.retirado,
+            p.obsRetirado
+        })
+        .ToList();
+
+    return Results.Ok(pedidosPasados);
+}).WithTags("Pedido");
+
+// OBTENER RESERVA ACTUAL DE COMPOST A REVISARRRR
+app.MapGet("/reservaTotal", () =>
+{
+    var kilosIngresados = entidades.Sum(e => e.CompostEntidadades.Sum(c => c.kilos));
+    var kilosRetirados = entidades.Sum(e => e.CompostEntidadades.Where(c => c.retirado == 1).Sum(c => c.kilos));
+    var reservaActual = kilosIngresados - kilosRetirados;
+
+    var resultado = new
+    {
+        KilosIngresados = kilosIngresados,
+        KilosRetirados = kilosRetirados,
+        ReservaActual = reservaActual
+    };
+
+    return Results.Ok(resultado);
+}).WithTags("Reserva");
 
 
 

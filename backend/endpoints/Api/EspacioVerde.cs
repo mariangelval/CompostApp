@@ -2,6 +2,7 @@ namespace Api;
 public class EspacioVerde
 {
     public short idEspacioVerde { get; set; }
+    public string nombre { get; set; }
     public string calle { get; set; }
     public short altura { get; set; }
     public short metros2 { get; set; }
