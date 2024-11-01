@@ -24,3 +24,6 @@ body .boton-agregar {
   justify-content: space-around;
   flex-direction: row;
 }
+body .css-4uktz3-MuiPaper-root{
+  width: 730px;
+}

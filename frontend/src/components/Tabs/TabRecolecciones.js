@@ -3,11 +3,18 @@ import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
 
-function TabRecolecciones() {
+function TabRecolecciones({ onChange }) {
+  const [valorTab, setValorTab] = React.useState(0); // Estado local para la pestaña seleccionada
+
+  const manejarCambio = (nuevoValor) => {
+    setValorTab(nuevoValor);
+    onChange(nuevoValor); // Llama a la función de cambio pasada desde el padre
+  };
   return (
     <Tabs
       aria-label="tabs"
-      defaultValue={0}
+      value={valorTab}
+      onChange={(event, newValue) => manejarCambio(newValue)}
       sx={{ bgcolor: "transparent", width: "340px" }}
     >
       <TabList
