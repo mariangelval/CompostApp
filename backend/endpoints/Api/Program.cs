@@ -442,9 +442,9 @@ app.MapGet("/historialPedidos", () =>
         .ToList();
 
     return Results.Ok(pedidosPasados);
-}).WithTags("Pedido");
+}).WithTags("Pedidos (administrador)");
 
-// OBTENER RESERVA ACTUAL DE COMPOST A REVISARRRR
+// OBTENER RESERVA ACTUAL DE COMPOST (A REVISARRRR)
 app.MapGet("/reservaTotal", () =>
 {
     var kilosIngresados = entidades.Sum(e => e.CompostEntidadades.Sum(c => c.kilos));
@@ -461,8 +461,204 @@ app.MapGet("/reservaTotal", () =>
     return Results.Ok(resultado);
 }).WithTags("Reserva");
 
+// ------------------------------- Entidades -----------------------------------------
+// AGREGAR UN PEDIDO NUEVO
+app.MapPost("/entidad/{entidadId}/compostEntidad", (int entidadId, [FromBody] CompostEntidad nuevoPedido) =>
+{
+    // Verifica que la entidad exista
+    var entidad = entidades.FirstOrDefault(e => e.idEntidad == entidadId);
+    if (entidad == null)
+    {
+        return Results.NotFound("Entidad no encontrada.");
+    }
+
+    // Establece propiedades adicionales del nuevo pedido
+    nuevoPedido.fechaPedido = DateTime.Now;
+    nuevoPedido.recoleccion = null; 
+    nuevoPedido.retirado = 0;
+    nuevoPedido.obsRetirado = null;
+
+    // Agrega el nuevo pedido a la lista de pedidos de la entidad
+    entidad.CompostEntidadades.Add(nuevoPedido);
+
+    return Results.Created($"/entidad/{entidadId}/pedido/{nuevoPedido.idCompostEntidad}", nuevoPedido);
+})
+.WithTags("Pedidos (entidad)");
+
+// EDITAR UN PEDIDO
+app.MapPut("/entidad/{entidadId}/pedido/{pedidoId}", (int entidadId, int pedidoId, [FromBody] CompostEntidad pedidoActualizado) =>
+{
+    // Verifica que la entidad exista
+    var entidad = entidades.FirstOrDefault(e => e.idEntidad == entidadId);
+    if (entidad == null)
+    {
+        return Results.NotFound("Entidad no encontrada.");
+    }
+
+    // Busca el pedido que se quiere editar
+    var pedidoExistente = entidad.CompostEntidadades.FirstOrDefault(p => p.idCompostEntidad == pedidoId);
+    if (pedidoExistente == null)
+    {
+        return Results.NotFound("Pedido no encontrado.");
+    }
+
+    // Actualiza las propiedades del pedido existente solo si se proporcionan
+    if (pedidoActualizado.kilos > 0)
+        pedidoExistente.kilos = pedidoActualizado.kilos;
+
+    if (!string.IsNullOrEmpty(pedidoActualizado.obsPedido))
+        pedidoExistente.obsPedido = pedidoActualizado.obsPedido;
+
+    // Puedes añadir más propiedades para actualizar según sea necesario
+
+    return Results.Ok(pedidoExistente);
+})
+.WithTags("Pedidos (entidad)");
+
+// BORRAR UN PEDIDO
+app.MapDelete("/entidad/{entidadId}/pedido/{pedidoId}", (int entidadId, int pedidoId) =>
+{
+    // Verifica que la entidad exista
+    var entidad = entidades.FirstOrDefault(e => e.idEntidad == entidadId);
+    if (entidad == null)
+    {
+        return Results.NotFound("Entidad no encontrada.");
+    }
+
+    // Busca el pedido que se quiere eliminar
+    var pedidoExistente = entidad.CompostEntidadades.FirstOrDefault(p => p.idCompostEntidad == pedidoId);
+    if (pedidoExistente == null)
+    {
+        return Results.NotFound("Pedido no encontrado.");
+    }
+
+    // Elimina el pedido de la lista de pedidos de la entidad
+    entidad.CompostEntidadades.Remove(pedidoExistente);
+
+    return Results.Ok(entidad.CompostEntidadades); // Devuelve la lista actualizada de pedidos de esa institución
+})
+.WithTags("Pedidos (entidad)");
+
+// VER PEDIDOS ENVIADOS (a los que el administrador todavía no asignó retiro)
+app.MapGet("/pedidos-enviados", () =>
+{
+    // Filtrar los pedidos que no tienen asignado el retiro
+    var pedidosEnviados = entidades
+        .SelectMany(e => e.CompostEntidadades)
+        .Where(c => c.recoleccion == null && c.retirado == 0 && c.obsRetirado == null)
+        .Select(c => new
+        {
+            c.idCompostEntidad,
+            c.kilos,
+            c.fechaPedido,
+            c.obsPedido,
+            c.recoleccion,
+            c.retirado,
+            c.obsRetirado,
+            NombreEntidad = entidades.FirstOrDefault(e => e.CompostEntidadades.Contains(c))?.nombre
+        })
+        .ToList();
+
+    // Verificar si hay pedidos
+    if (!pedidosEnviados.Any())
+    {
+        return Results.NotFound("No hay pedidos enviados sin asignar retiro.");
+    }
+
+    return Results.Ok(pedidosEnviados);
+})
+.WithTags("Pedidos (entidad)");
+
+// VER PEDIDOS PROGRAMADOS
+app.MapGet("/pedidos-programados", () =>
+{
+    // Definir la fecha actual y la fecha límite (por ejemplo, los próximos 7 días)
+    var fechaActual = DateTime.Now;
+    var fechaLimite = fechaActual.AddDays(7);
+
+    // Filtrar los pedidos que tienen fecha de recolección asignada y que están dentro del rango de fechas
+    var pedidosPendientes = entidades
+        .SelectMany(e => e.CompostEntidadades)
+        .Where(c => c.recoleccion != null && c.recoleccion >= fechaActual && c.recoleccion <= fechaLimite)
+        .Select(c => new
+        {
+            c.idCompostEntidad,
+            c.kilos,
+            c.fechaPedido,
+            c.obsPedido,
+            c.recoleccion,
+            c.retirado,
+            c.obsRetirado,
+            NombreEntidad = entidades.FirstOrDefault(e => e.CompostEntidadades.Contains(c))?.nombre
+        })
+        .ToList();
+
+    // Verificar si hay pedidos pendientes
+    if (!pedidosPendientes.Any())
+    {
+        return Results.NotFound("No hay pedidos pendientes programados para los próximos días.");
+    }
+
+    return Results.Ok(pedidosPendientes);
+})
+.WithTags("Pedidos (entidad)");
+
+// VER EL HISTORIAL DE PEDIDOS 
+app.MapGet("/entidad/{idEntidad}/historial-pedidos", (int idEntidad) =>
+{
+    // Buscar la entidad por su ID
+    var entidad = entidades.FirstOrDefault(e => e.idEntidad == idEntidad);
+    
+    // Verificar si la entidad existe
+    if (entidad == null)
+    {
+        return Results.NotFound("Entidad no encontrada.");
+    }
+
+    // Obtener el historial de pedidos de la entidad
+    var historialPedidos = entidad.CompostEntidadades
+        .Where(p => p.fechaPedido < DateTime.Now) // Solo pedidos anteriores a la fecha actual
+        .Select(p => new
+        {
+            p.idCompostEntidad,
+            p.kilos,
+            p.fechaPedido,
+            p.obsPedido,
+            p.recoleccion,
+            p.retirado,
+            p.obsRetirado
+        })
+        .ToList();
+
+    // Verificar si hay pedidos en el historial
+    if (!historialPedidos.Any())
+    {
+        return Results.NotFound("No hay historial de pedidos para esta entidad.");
+    }
+
+    return Results.Ok(historialPedidos);
+})
+.WithTags("Pedidos (entidad)");
 
 
+// VER CUÁNTOS KILOS HA DONADO EN TOTAL 
+app.MapGet("/entidad/{idEntidad}/total-kilos-donados", (int idEntidad) =>
+{
+    // Buscar la entidad por su ID
+    var entidad = entidades.FirstOrDefault(e => e.idEntidad == idEntidad);
+    
+    // Verificar si la entidad existe
+    if (entidad == null)
+    {
+        return Results.NotFound("Entidad no encontrada.");
+    }
+
+    // Calcular el total de kilos donados
+    var totalKilosDonados = entidad.CompostEntidadades.Sum(p => p.kilos);
+
+    return Results.Ok(new { TotalKilosDonados = totalKilosDonados });
+})
+.WithTags("Pedidos (entidad)");
 
 
 app.Run();
