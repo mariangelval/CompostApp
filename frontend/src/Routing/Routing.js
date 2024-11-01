@@ -9,7 +9,7 @@ import Escuelas from "../pages/gobierno/Escuelas";
 import Solicitud from "../pages/escuela/Solicitud";
 import Historial from "../pages/escuela/Historial";
 import EspaciosVerdes from "../pages/gobierno/EspaciosVerdes";
-
+import InicioEscuela from "../pages/escuela/InicioEscuela";
 function Routing() {
   return (
     <CartProvider>
@@ -23,6 +23,7 @@ function Routing() {
           <Route path="/solicitud" element={<Solicitud />} />
           <Route path="/historial" element={<Historial />} />
           <Route path="/espacios-verdes" element={<EspaciosVerdes/>}/>
+          <Route path="/dashEscuela" element={<InicioEscuela/>}/>
         </Routes>
       </Router>
     </CartProvider>

@@ -6,7 +6,6 @@ import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import SpaIcon from "@mui/icons-material/Spa";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 import "../NavBar/NavBar.css";
 function Navbar() {
@@ -34,6 +33,9 @@ function Navbar() {
   };
   const goToEspaciosVerdes=()=>{
     navegate("/espacios-verdes");
+  }
+  const goToInicioEscuela=()=>{
+    navegate("/dashEscuela");
   }
 
   return (
@@ -66,6 +68,9 @@ function Navbar() {
             <Button color="inherit" onClick={goToHistorial}>
               Historial
             </Button>
+            <Button color="inherit" onClick={goToInicioEscuela}>
+              Inicio2
+            </Button>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" }, ml: "auto" }}>
             <IconButton color="inherit" onClick={handleMenuOpen}>
@@ -83,6 +88,7 @@ function Navbar() {
           <MenuItem onClick={goToEscuelas}>Buscar</MenuItem>
           <MenuItem onClick={goToEspaciosVerdes}>Espacios Verdes</MenuItem>
           <MenuItem onClick={goToHistorial}>Historial</MenuItem>
+          <MenuItem onClick={goToInicioEscuela}>Inicio2</MenuItem>
         </Menu>
       </AppBar>
       <Box sx={{ height: 20 }} />

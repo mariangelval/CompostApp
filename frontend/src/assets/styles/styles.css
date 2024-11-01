@@ -10,16 +10,7 @@ body {
   padding-top: 64px;
 }
 
-.boton-agregar {
-  background-color: #618760;
-  font-weight: bold;
-  height: 40px;
-  width: 90px;
-  margin: 21.44px 0 0 21.44px;
-}
-.boton-agregar:hover {
-  background-color: #416340;
-}
+
 .conjunto-historial {
   display: flex;
   justify-content: space-between;

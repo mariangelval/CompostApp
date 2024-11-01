@@ -1,0 +1,26 @@
+.conjunto-historial h1 {
+  width: 600px;
+  padding: 45px 0px 0px 30px;
+}
+body .container-recolecciones-escuela .tab-button {
+  color: black;
+}
+body .container-recolecciones-escuela .tab-button {
+  transition: none;
+  border: none;
+  padding: 0px 40px;
+  width: 170px;
+  font-size: 14px;
+}
+body .boton-agregar {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  border-radius: 100px;
+}
+.container-recolecciones-escuela {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+}
