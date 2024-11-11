@@ -14,6 +14,17 @@ img {
   flex-direction: column;
   justify-content: flex-start;
 }
+body .css-1rlngeb-MuiInputBase-root {
+  border-radius: 10px;
+}
+.inputContraseña {
+  width: 300px;
+}
+.tabla {
+  width: 100%;
+  min-width: 897px;
+  min-height: 100vh;
+}
 body .modal-escuela .MuiBox-root {
   padding: 40px;
 }
@@ -44,4 +55,46 @@ body .modal-warning .boton-confirmar {
 }
 .boton-cancelar:hover {
   background-color: #cb4040;
+}
+@media (max-width: 600px) {
+  body .css-17mgtuk {
+    width: 200px;
+  }
+  body .css-1rlngeb-MuiInputBase-root {
+    border-radius: 10px;
+  }
+  .header-buscador {
+    justify-content: center;
+    margin-left: 110px;
+    width: 200px;
+  }
+  .header-buscador-search {
+    margin-right: 10px;
+  }
+  .container-botones-escuelas {
+    margin-right: 100px;
+  }
+  .header-buscador img {
+    display: none;
+  }
+  body .tabla {
+    width: 300px;
+    margin-left: 10px;
+    min-width: 300px;
+  }
+  body .modal-escuela .MuiBox-root {
+    width: 269px;
+  }
+  body .CalleAltura .inp1 {
+    margin-right: 30px;
+  }
+  body .CalleAltura {
+    flex-direction: column;
+  }
+  body .CalleAltura input {
+    width: 300px;
+  }
+  .inputContraseña {
+    width: 100px;
+  }
 }

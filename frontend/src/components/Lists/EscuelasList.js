@@ -9,32 +9,84 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 const columns = [
-  { id: "nombreEscuela", label: "nombre", minWidth: 170 },
-  { id: "direccion", label: "direccion", minWidth: 100 },
-  {
-    id: "codigoPostal",
-    label: "codigoPostal",
-    minWidth: 170,
-    align: "right",
-  },
+  { id: "id", label: "ID", minWidth: 50 },
+  { id: "nombre", label: "Nombre", minWidth: 170 },
+  { id: "email", label: "Email", minWidth: 200 },
+  { id: "calle", label: "Calle", minWidth: 170 },
+  { id: "altura", label: "Altura", minWidth: 100, align: "right" },
 ];
 
-function createData(nombreEscuela, direccion, codigoPostal) {
-  return { nombreEscuela, direccion, codigoPostal };
+function createData(id, nombre, email, calle, altura) {
+  return { id, nombre, email, calle, altura };
 }
 
 const rows = [
-  createData("Escuela Primaria Hidalgo", "Av. Revolución 123", "11560"),
-  createData("Colegio Juárez", "Calle Libertad 456", "23000"),
-  createData("Instituto Nacional de Educación", "Av. Central 789", "28940"),
-  createData("Escuela Secundaria Morelos", "Calle 5 de Mayo 321", "55870"),
-  createData("Colegio Internacional", "Av. Paseo de la Reforma 234", "04340"),
-  createData("Escuela Técnica #1", "Calle Reforma Agraria 876", "60900"),
-  createData("Liceo Francés", "Calle Insurgentes 987", "21000"),
-  createData("Escuela de Ciencias Exactas", "Av. Universidad 654", "07960"),
-  createData("Escuela Modelo", "Calle Independencia 112", "76230"),
-  createData("Centro Educativo Santa Fe", "Av. Colón 567", "11000"),
+  createData(
+    1,
+    "Escuela Primaria Hidalgo",
+    "contacto@hidalgo.edu",
+    "Av. Revolución",
+    123
+  ),
+  createData(2, "Colegio Juárez", "info@juarez.edu", "Calle Libertad", 456),
+  createData(
+    3,
+    "Instituto Nacional de Educación",
+    "contacto@ine.edu",
+    "Av. Central",
+    789
+  ),
+  createData(
+    4,
+    "Escuela Secundaria Morelos",
+    "info@morelos.edu",
+    "Calle 5 de Mayo",
+    321
+  ),
+  createData(
+    5,
+    "Colegio Internacional",
+    "contacto@internacional.edu",
+    "Av. Paseo de la Reforma",
+    234
+  ),
+  createData(
+    6,
+    "Escuela Técnica #1",
+    "info@tecnica1.edu",
+    "Calle Reforma Agraria",
+    876
+  ),
+  createData(
+    7,
+    "Liceo Francés",
+    "contacto@liceofrances.edu",
+    "Calle Insurgentes",
+    987
+  ),
+  createData(
+    8,
+    "Escuela de Ciencias Exactas",
+    "info@cienciasexactas.edu",
+    "Av. Universidad",
+    654
+  ),
+  createData(
+    9,
+    "Escuela Modelo",
+    "contacto@model.edu",
+    "Calle Independencia",
+    112
+  ),
+  createData(
+    10,
+    "Centro Educativo Santa Fe",
+    "info@santafe.edu",
+    "Av. Colón",
+    567
+  ),
 ];
+
 function EscuelasList({ busqueda }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -47,10 +99,10 @@ function EscuelasList({ busqueda }) {
     setPage(0);
   };
   const escuelasFiltrados = rows.filter((escuela) =>
-    escuela.nombreEscuela.toLowerCase().includes(busqueda.toLowerCase())
+    escuela.nombre.toLowerCase().includes(busqueda.toLowerCase())
   );
   return (
-    <div style={{ width: "100%", minWidth: "800px", minHeight: "100vh" }}>
+    <div className="tabla">
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">

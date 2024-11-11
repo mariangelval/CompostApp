@@ -97,8 +97,8 @@ function EscuelaModal({ open, handleClose, isEditing, recordId }) {
             <label>Contraseña</label>
             <br />
             <input
+              className="inputContraseña"
               type="text"
-              style={{ width: "300px" }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
