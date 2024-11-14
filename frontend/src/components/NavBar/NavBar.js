@@ -29,12 +29,12 @@ function Navbar() {
     navegate("/solicitud");
   };
 
-  const goToEspaciosVerdes=()=>{
+  const goToEspaciosVerdes = () => {
     navegate("/espacios-verdes");
-  }
-  const goToInicioEscuela=()=>{
+  };
+  const goToInicioEscuela = () => {
     navegate("/dashEscuela");
-  }
+  };
 
   return (
     <>
@@ -58,7 +58,7 @@ function Navbar() {
               Formulario
             </Button>
             <Button color="inherit" onClick={goToEscuelas}>
-              Buscar
+              Instituciones
             </Button>
             <Button color="inherit" onClick={goToEspaciosVerdes}>
               Espacios Verdes

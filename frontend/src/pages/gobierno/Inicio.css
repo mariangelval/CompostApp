@@ -3,17 +3,13 @@
     background-color: lightblue;
   }
 
-
   .container-botones-agregar {
-    flex-direction: column;
     align-items: center;
   }
   .container-botones-agregar button {
     margin-bottom: 3px;
   }
-  body .css-fsultb-MuiPaper-root-MuiTableContainer-root {
-    width: 250px;
-  }
+
   body .css-1sfdc1y-MuiTableCell-root {
     max-width: 10px;
     width: 0;
@@ -46,4 +42,32 @@
   .reserva-compost {
     margin-left: 0;
   }
+}
+body .css-fsultb-MuiPaper-root-MuiTableContainer-root {
+  border-radius: 0;
+  margin-bottom: 0px;
+  box-shadow: none;
+}
+body .css-b4yaxo-MuiButtonBase-root-MuiButton-root {
+  padding: 5px 15px;
+  border: 1px solid currentColor;
+  transition: background-color 250ms, box-shadow 250ms, color 250ms;
+}
+.MuiButtonBase-root.MuiButton-root.boton-aceptar-2 {
+  background-color: #618760;
+}
+.MuiButtonBase-root.MuiButton-root.boton-aceptar-2:hover {
+  background-color: #416340;
+}
+.MuiButtonBase-root.MuiButton-root.boton-cancelar-2 {
+  background-color: #ff4f4f;
+}
+.MuiButtonBase-root.MuiButton-root.boton-cancelar-2:hover {
+  background-color: #cb4040;
+}
+body .css-1xme32l-MuiPaper-root-MuiTableContainer-root {
+  max-width: 100%;
+  border-radius: 0px;
+  box-shadow: none;
+  
 }

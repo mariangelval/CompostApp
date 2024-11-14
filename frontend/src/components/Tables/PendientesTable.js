@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,6 +13,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
+import { TablePagination } from "@mui/material";
 
 function createData(pendientes, dia) {
   return { pendientes, dia };
@@ -44,7 +45,16 @@ function PendientesTable() {
       return newValues;
     });
   };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const handleClickOpen = (index) => {
     setCurrentIndex(index);
     setOpen(true);
@@ -59,99 +69,116 @@ function PendientesTable() {
   };
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        borderRadius: "15px",
-        overflow: "hidden",
-      }}
-    >
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell
-              sx={{
-                borderRight: "1px solid black",
-                width: "50%",
-                textAlign: "center",
-              }}
-            >
-              Recoleccion Pendientes
-            </TableCell>
-            <TableCell
-              sx={{
-                width: "50%",
-                textAlign: "center",
-              }}
-            >
-              Dia Programado
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row, index) => (
-            <TableRow key={row.pendientes}>
+    <Paper>
+      <TableContainer
+        component={Paper}
+        sx={{
+          borderRadius: "15px",
+          overflow: "hidden",
+        }}
+        className="table-pendientes"
+      >
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
               <TableCell
-                component="th"
-                scope="row"
                 sx={{
                   borderRight: "1px solid black",
                   width: "50%",
                   textAlign: "center",
-                  padding: "8px",
                 }}
               >
-                {row.pendientes}
+                Recoleccion Pendientes
               </TableCell>
               <TableCell
                 sx={{
                   width: "50%",
                   textAlign: "center",
-                  padding: "8px",
                 }}
               >
-                <Button
-                  variant="outlined"
-                  onClick={() => handleClickOpen(index)}
-                >
-                  {dateValues[index] ? "Cambiar Fecha" : "Seleccionar Fecha"}
-                </Button>
-                <div>
-                  {dateValues[index] &&
-                    `Fecha seleccionada: ${dateValues[index]}`}
-                </div>
+                Dia Programado
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Seleccionar Fecha</DialogTitle>
-        <DialogContent>
-          <TextField
-            type="date"
-            fullWidth
-            onChange={handleDateChange}
-            defaultValue={dateValues[currentIndex]}
-            inputProps={{
-              min: today,
-            }}
-            autoFocus
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button
-            onClick={() => {
-              handleAccept();
-              handleDateChange({ target: { value: dateValues[currentIndex] } });
-            }}
-          >
-            Aceptar
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={row.pendientes}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{
+                    borderRight: "1px solid black",
+                    width: "50%",
+                    textAlign: "center",
+                    padding: "8px",
+                  }}
+                >
+                  {row.pendientes}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    width: "50%",
+                    textAlign: "center",
+                    padding: "8px",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleClickOpen(index)}
+                  >
+                    {dateValues[index] ? "Cambiar Fecha" : "Seleccionar Fecha"}
+                  </Button>
+                  <div>
+                    {dateValues[index] &&
+                      `Fecha seleccionada: ${dateValues[index]}`}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Seleccionar Fecha</DialogTitle>
+          <DialogContent>
+            <TextField
+              type="date"
+              fullWidth
+              onChange={handleDateChange}
+              defaultValue={dateValues[currentIndex]}
+              inputProps={{
+                min: today,
+              }}
+              autoFocus
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} className="boton-cancelar-2">
+              Cancelar
+            </Button>
+            <Button
+              onClick={() => {
+                handleAccept();
+                handleDateChange({
+                  target: { value: dateValues[currentIndex] },
+                });
+              }}
+              className="boton-aceptar-2"
+            >
+              Aceptar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
 

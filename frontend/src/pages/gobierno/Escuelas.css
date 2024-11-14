@@ -56,6 +56,9 @@ body .modal-warning .boton-confirmar {
 .boton-cancelar:hover {
   background-color: #cb4040;
 }
+.form-modal .container-botones-escuelas {
+  justify-content: space-evenly;
+}
 @media (max-width: 600px) {
   body .css-17mgtuk {
     width: 200px;
@@ -91,10 +94,17 @@ body .modal-warning .boton-confirmar {
   body .CalleAltura {
     flex-direction: column;
   }
-  body .CalleAltura input {
-    width: 300px;
+
+  body .form-modal .CalleAltura input {
+    width: 280px;
   }
   .inputContraseña {
-    width: 100px;
+    width: 280px;
+  }
+  body .css-1wnsr1i {
+    width: 250px;
+  }
+  body .css-1gkse3u {
+    width: 220px;
   }
 }

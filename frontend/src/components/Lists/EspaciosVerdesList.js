@@ -74,7 +74,7 @@ function EspaciosVerdesList({ busqueda }) {
     espacios.nombreEspacio.toLowerCase().includes(busqueda.toLowerCase())
   );
   return (
-    <div style={{ width: "100%", minWidth: "900px", minHeight: "100vh" }}>
+    <div className="tabla">
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440, width: "100%" }}>
           <Table stickyHeader aria-label="sticky table">

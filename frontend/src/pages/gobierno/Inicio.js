@@ -3,17 +3,12 @@ import PendientesTable from "../../components/Tables/PendientesTable";
 import EspaciosVerdesTable from "../../components/Tables/EspaciosVerdesTable";
 import compostIcon from "../../assets/img/compost.png";
 import Navbar from "../../components/NavBar/NavBar";
-import "./Inicio.css"
-import { useParams } from "react-router-dom";
+import "./Inicio.css";
 
 function Inicio() {
   return (
     <div class="container-pendientes">
       <Navbar />
-      <div class="container-botones-agregar">
-        <button>Agregar instituto</button>
-        <button>Agregar Espacio Verde</button>
-      </div>
       <PendientesTable />
       <div class="container-verdes-reserva">
         <EspaciosVerdesTable />

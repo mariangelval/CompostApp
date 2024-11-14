@@ -10,7 +10,6 @@ body {
   padding-top: 64px;
 }
 
-
 .conjunto-historial {
   display: flex;
   justify-content: space-between;
@@ -74,7 +73,7 @@ body .css-b4yaxo-MuiButtonBase-root-MuiButton-root {
   border-color: #618760;
 }
 body .css-1apkmlw-MuiButtonBase-root-MuiButton-root {
-  color: #618760;
+  color: white;
 }
 button:hover {
   background-color: #416340;
@@ -94,7 +93,7 @@ p {
 
 .container-botones-agregar {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 10px;
 }
 .container-botones-agregar button {
@@ -108,7 +107,8 @@ p {
   margin-top: 20px;
 }
 .reserva-compost img {
-  width: 140px;
+  width: 135px;
+  height: 120px;
 }
 .reserva-compost {
   align-items: center;
@@ -142,7 +142,10 @@ body .css-1776fzg-MuiInputBase-root .MuiInputBase-input:focus {
 .container-pendientes {
   margin: 10px;
 }
-body .css-99wn1p-MuiList-root-MuiMenu-list{
+body .css-99wn1p-MuiList-root-MuiMenu-list {
   background-color: #618760;
   color: white;
+}
+body .form-modal textarea {
+  width: 270px;
 }

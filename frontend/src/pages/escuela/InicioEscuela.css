@@ -12,6 +12,13 @@ body .container-recolecciones-escuela .tab-button {
   width: 170px;
   font-size: 14px;
 }
+.tab-recolecciones {
+  display: flex;
+  align-items: center;
+}
+body .css-1j6m9fs-JoyTabs-root {
+  margin-left: 20px;
+}
 body .boton-agregar {
   display: flex;
   align-items: center;
@@ -24,6 +31,67 @@ body .boton-agregar {
   justify-content: space-around;
   flex-direction: row;
 }
-body .css-4uktz3-MuiPaper-root{
+body .css-4uktz3-MuiPaper-root {
   width: 730px;
+}
+svg {
+  width: 23px;
+  height: 23px;
+  margin-right: 4px;
+}
+.tabla-historial {
+  width: 700px;
+}
+body .css-16lqayc-MuiPaper-root {
+  width: 700px;
+}
+
+@media (max-width: 600px) {
+  .conjunto-historial {
+    width: 340px;
+    justify-content: space-evenly;
+    margin-left: 6px;
+  }
+  .container-recolecciones-escuela {
+    width: 350px;
+    flex-direction: column;
+  }
+  .conjunto-historial h1 {
+    width: 200px;
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    padding: 45px 20px 0px 0px;
+  }
+  hr {
+    width: 350px;
+  }
+  .tab-recolecciones {
+    display: flex;
+    flex-direction: row;
+  }
+  .container-recolecciones-escuela h2 {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  body .css-1j6m9fs-JoyTabs-root {
+    width: 200px;
+  }
+  .container-boton-agregar {
+    display: flex;
+    width: 320px;
+    justify-content: flex-start;
+  }
+  body .tabla-historial {
+    width: 300px;
+    min-width: 300px;
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+  body .css-16lqayc-MuiPaper-root {
+    width: 300px;
+  }
+  body .css-1j6m9fs-JoyTabs-root {
+    margin-left: 0px;
+  }
 }
